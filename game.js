@@ -5,6 +5,60 @@ let elapsedTime;
 let lastFrameTimestamp;
 let fps
 
+const Renderer = () => {
+    objects: []
+    const draw = () => {
+
+    }
+
+    const update = () => {
+
+    }
+    return { draw, update}
+}
+
+const Ball = () => {
+    let x;
+    let y;
+    let dx;
+    let dy;
+
+    const draw = () => {
+
+    }
+
+    const update = () => {
+
+    }
+
+    return {
+        x, y, dx, dy
+    }
+}
+
+const Paddle = () => {
+    let x;
+    let y;
+    let speed;
+    return {
+        x, y, speed
+    }
+}
+
+const WordBrick = () => {
+    
+    const draw = () => {
+
+    }
+
+    const update = () => {
+
+    }
+    return {
+        draw, update
+    }
+}
+
 
 function init() {
     canvas = document.getElementById("game-canvas")
