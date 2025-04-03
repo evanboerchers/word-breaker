@@ -23,7 +23,7 @@ function init() {
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
     game = Game(canvas, config)
-    game.render();
+    game.start();
 }
 
 function start() {             
@@ -35,7 +35,7 @@ function start() {
 const Game = (canvas, config) => {
     let ctx = canvas.getContext('2d')
     let lastFrameTimestamp
-    let paddle = Paddle(canvas/2)
+    let paddle = Paddle(canvas.width/2, canvas.height - 10, 200, 10)
     let ball = Ball(canvas.width/2, canvas.height - 100, 1, 20)
     let wordBricks = config.words.map((wordConfig) => {
         return WordBrick()
@@ -82,7 +82,14 @@ const Game = (canvas, config) => {
         draw();
         window.requestAnimationFrame(gameLoop)
     }
-    return {draw, update, render: start}
+    return {
+        draw, 
+        update, 
+        start,
+        get paddle() { return paddle; },
+        get ball() { return ball; },
+        get wordBricks() { return wordBricks; },
+    }
 }
 
 const Ball = (initX, initY, speed, initRadius) => {
@@ -162,9 +169,11 @@ const Paddle = (initialX, initialY, initWidth, initHeight, speed) => {
     let height = initHeight
     let x = initialX
     let y = initialY
+    let mouseX;
 
     canvas.addEventListener("mousemove", function(event) {
-        x = event.offSetX;
+        console.log(`Mouse x: ${event.offsetX}`)
+        mouseX = event.offsetX;
     })
 
     const draw = (ctx) => {
@@ -176,7 +185,7 @@ const Paddle = (initialX, initialY, initWidth, initHeight, speed) => {
     }
 
     const update = () => {
-
+        x = mouseX ?? x
     }
 
     return {
